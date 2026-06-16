@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ellie｜阿尼基寵物學院 Aniki Pet Academy</title>
+  <meta name="description" content="Ellie｜阿尼基寵物學院 Aniki Pet Academy，專注於狗狗照護、高齡犬陪伴、寵物生活美學與犬種知識分享。" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandCream: "#EFE7DE",
+            brandBeige: "#DCC4AE",
+            brandBlush: "#F4D6DA",
+            brandSage: "#C9D4CB",
+            brandIvory: "#FAF7F2",
+            brandCocoa: "#4F4540",
+            brandMist: "#E6DFD8",
+            brandClay: "#DBA0A9"
+          },
+          boxShadow: {
+            softGlow: "0 20px 70px rgba(219, 160, 169, 0.16)",
+            cardGlow: "0 24px 80px rgba(220, 196, 174, 0.18)"
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      color: #4F4540;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(220, 196, 174, 0.18), transparent 28%),
+        radial-gradient(circle at 88% 22%, rgba(244, 214, 218, 0.18), transparent 24%),
+        radial-gradient(circle at 52% 92%, rgba(201, 212, 203, 0.12), transparent 34%),
+        linear-gradient(135deg, #FAF7F2 0%, #EFE7DE 45%, #DCC4AE 100%);
+      overflow-x: hidden;
+    }
+
+    /* 溫暖品牌網格背景 */
+    .tech-grid {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background-image:
+        linear-gradient(rgba(79, 69, 64, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79, 69, 64, 0.08) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.2), transparent);
+      pointer-events: none;
+    }
+
+    /* 柔和資料流線條 */
+    .data-flow {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .data-flow span {
+      position: absolute;
+      width: 180px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(220, 196, 174, 0.35), transparent);
+      animation: flowMove 12s linear infinite;
+      opacity: 0.55;
+    }
+
+    .data-flow span:nth-child(1) { top: 18%; left: -20%; animation-delay: 0s; }
+    .data-flow span:nth-child(2) { top: 36%; left: -30%; animation-delay: 3s; }
+    .data-flow span:nth-child(3) { top: 58%; left: -25%; animation-delay: 6s; }
+    .data-flow span:nth-child(4) { top: 76%; left: -40%; animation-delay: 9s; }
+
+    @keyframes flowMove {
+      0% { transform: translateX(0); opacity: 0; }
+      15% { opacity: 0.55; }
+      85% { opacity: 0.55; }
+      100% { transform: translateX(150vw); opacity: 0; }
+    }
+
+    /* 粒子節點 */
+    .particle {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(220, 196, 174, 0.24);
+      box-shadow: 0 0 18px rgba(220, 196, 174, 0.25);
+      z-index: -1;
+      animation: floatNode 7s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .particle:nth-child(1) { top: 18%; left: 8%; animation-delay: 0s; }
+    .particle:nth-child(2) { top: 32%; right: 14%; animation-delay: 1.2s; background: rgba(244, 214, 218, 0.24); }
+    .particle:nth-child(3) { top: 62%; left: 12%; animation-delay: 2.4s; background: rgba(201, 212, 203, 0.24); }
+    .particle:nth-child(4) { bottom: 18%; right: 10%; animation-delay: 3.6s; }
+    .particle:nth-child(5) { bottom: 34%; left: 44%; animation-delay: 4.8s; background: rgba(220, 196, 174, 0.20); }
+
+    @keyframes floatNode {
+      0%, 100% { transform: translateY(0) scale(1); opacity: 0.45; }
+      50% { transform: translateY(-18px) scale(1.2); opacity: 0.85; }
+    }
+
+    .glass {
+      background: rgba(250, 247, 242, 0.76);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(230, 223, 216, 0.55);
+      box-shadow: 0 20px 70px rgba(79, 69, 64, 0.08);
+    }
+
+    .gradient-border {
+      position: relative;
+      background: linear-gradient(#FAF7F2, #FAF7F2) padding-box,
+                  linear-gradient(135deg, rgba(220,196,174,0.45), rgba(244,214,218,0.35), rgba(201,212,203,0.35)) border-box;
+      border: 1px solid transparent;
+    }
+
+    .section-title {
+      background: linear-gradient(135deg, #DCC4AE, #DBA0A9, #C9D4CB);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .typing-cursor::after {
+      content: "|";
+      margin-left: 4px;
+      color: #DBA0A9;
+      animation: blink 0.9s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    .hover-lift {
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    .hover-lift:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 28px 90px rgba(220, 196, 174, 0.24);
+    }
+
+    .cta-button {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button .status {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.28s ease;
+      color: #4F4540;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .cta-button .label {
+      transition: all 0.28s ease;
+    }
+
+    .cta-button:hover {
+      box-shadow: 0 0 0 5px rgba(219, 160, 169, 0.14), 0 18px 55px rgba(219, 160, 169, 0.22);
+      border-color: rgba(219, 160, 169, 0.45);
+    }
+
+    .cta-button:hover .label {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+
+    .cta-button:hover .status {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .soft-blob {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.18), transparent 68%);
+      filter: blur(6px);
+      animation: blobMove 9s ease-in-out infinite;
+    }
+
+    @keyframes blobMove {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(24px, -18px) scale(1.08); }
+    }
+
+    .mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .mobile-menu.open {
+      max-height: 480px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Background Effects -->
+  <div class="tech-grid"></div>
+  <div class="data-flow">
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+
+  <!-- Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-50 px-4 py-4">
+    <nav class="max-w-7xl mx-auto glass rounded-3xl px-5 py-4">
+      <div class="flex items-center justify-between">
+        <a href="#home" class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-techBlue via-premiumPurple to-mint flex items-center justify-center text-white shadow-softGlow">
+            🐾
+          </div>
+          <div>
+            <p class="font-bold tracking-wide text-slate-900">Ellie</p>
+            <p class="text-xs text-slate-500">Aniki Pet Academy</p>
+          </div>
+        </a>
+
+        <div class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-600">
+          <a href="#about" class="hover:text-techBlue transition">關於 Ellie</a>
+          <a href="#philosophy" class="hover:text-techBlue transition">品牌理念</a>
+          <a href="#services" class="hover:text-techBlue transition">服務項目</a>
+          <a href="#expertise" class="hover:text-techBlue transition">專業背景</a>
+          <a href="#cases" class="hover:text-techBlue transition">案例展示</a>
+          <a href="#blog" class="hover:text-techBlue transition">寵物知識</a>
+          <a href="#contact" class="hover:text-techBlue transition">聯絡我</a>
+        </div>
+
+        <a href="https://calendar.app.google/r2FN922uR3sfqJCX9" target="_blank" class="hidden md:inline-flex cta-button gradient-border rounded-full px-6 py-3 text-sm font-bold text-techBlue">
+          <span class="label">預約諮詢</span>
+          <span class="status">Status: Ready to Connect</span>
+        </a>
+
+        <button id="menuBtn" class="lg:hidden w-11 h-11 rounded-2xl bg-white/70 border border-slate-200 flex items-center justify-center text-slate-700">
+          ☰
+        </button>
+      </div>
+
+      <div id="mobileMenu" class="mobile-menu lg:hidden">
+        <div class="pt-5 grid gap-3 text-sm text-slate-600">
+          <a href="#about" class="mobile-link py-2">關於 Ellie</a>
+          <a href="#philosophy" class="mobile-link py-2">品牌理念</a>
+          <a href="#services" class="mobile-link py-2">服務項目</a>
+          <a href="#expertise" class="mobile-link py-2">專業背景</a>
+          <a href="#cases" class="mobile-link py-2">案例展示</a>
+          <a href="#blog" class="mobile-link py-2">寵物知識</a>
+          <a href="#contact" class="mobile-link py-2">聯絡我</a>
+          <a href="https://calendar.app.google/r2FN922uR3sfqJCX9" target="_blank" class="mt-2 cta-button gradient-border rounded-full px-6 py-3 text-center font-bold text-techBlue">
+            <span class="label">預約諮詢</span>
+            <span class="status">Status: Ready to Connect</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="relative min-h-screen flex items-center pt-32 pb-20 px-6 overflow-hidden">
+    <div class="soft-blob top-28 right-10"></div>
+    <div class="soft-blob bottom-16 left-10" style="background: radial-gradient(circle, rgba(16,185,129,0.16), transparent 68%); animation-delay: 2s;"></div>
+
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
+      <div class="reveal">
+        <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-2 mb-7">
+          <span class="w-2 h-2 rounded-full bg-mint animate-pulse"></span>
+          <span class="text-sm font-medium text-slate-600">Elegant Pet Tech・Warm Professional Care</span>
+        </div>
+
+        <p class="text-techBlue font-bold tracking-widest mb-4 uppercase text-sm">Ellie｜阿尼基寵物學院</p>
+
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-tight tracking-tight text-slate-950 mb-6">
+          <span id="typingText" class="typing-cursor section-title"></span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mb-9">
+          用專業、溫柔與美感，陪伴每一位飼主更理解狗狗，建立更安心、更長久的人犬關係。
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 mb-10">
+          <a href="https://calendar.app.google/r2FN922uR3sfqJCX9" target="_blank" class="cta-button gradient-border rounded-full px-8 py-4 text-center font-bold text-techBlue shadow-softGlow">
+            <span class="label">預約諮詢</span>
+            <span class="status">Status: Ready to Connect</span>
+          </a>
+          <a href="#services" class="rounded-full px-8 py-4 text-center font-bold text-slate-700 bg-white/70 border border-slate-200 hover:border-techBlue hover:text-techBlue hover:shadow-softGlow transition">
+            了解服務
+          </a>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3 max-w-xl">
+          <div class="glass rounded-3xl p-4">
+            <p class="text-2xl font-black text-techBlue">18+</p>
+            <p class="text-xs text-slate-500 mt-1">年照護經驗</p>
+          </div>
+          <div class="glass rounded-3xl p-4">
+            <p class="text-2xl font-black text-premiumPurple">PCP</p>
+            <p class="text-xs text-slate-500 mt-1">寵物照護員</p>
+          </div>
+          <div class="glass rounded-3xl p-4">
+            <p class="text-2xl font-black text-mint">Care</p>
+            <p class="text-xs text-slate-500 mt-1">高齡犬陪伴</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative reveal">
+        <div class="glass rounded-[2.5rem] p-6 md:p-8 shadow-cardGlow hover-lift">
+          <div class="rounded-[2rem] bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-6 border border-white/80">
+            <div class="flex items-center justify-between mb-8">
+              <div>
+                <p class="text-sm text-slate-500">Pet Care Intelligence</p>
+                <p class="text-2xl font-black text-slate-900">Aniki Care Map</p>
+              </div>
+              <div class="w-14 h-14 rounded-3xl bg-white shadow-softGlow flex items-center justify-center text-2xl">
+                🐶
+              </div>
+            </div>
+
+            <div class="grid gap-4">
+              <div class="glass rounded-3xl p-5 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center">💧</div>
+                <div>
+                  <p class="font-bold text-slate-800">Daily Care Signal</p>
+                  <p class="text-sm text-slate-500">飲食、作息、情緒與日常觀察</p>
+                </div>
+              </div>
+
+              <div class="glass rounded-3xl p-5 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-purple-100 flex items-center justify-center">🧠</div>
+                <div>
+                  <p class="font-bold text-slate-800">Behavior Insight</p>
+                  <p class="text-sm text-slate-500">以觀察取代猜測，讀懂狗狗訊號</p>
+                </div>
+              </div>
+
+              <div class="glass rounded-3xl p-5 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-100 flex items-center justify-center">🌿</div>
+                <div>
+                  <p class="font-bold text-slate-800">Senior Dog Companion</p>
+                  <p class="text-sm text-slate-500">陪伴高齡犬走過每一個階段</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8 h-24 rounded-3xl bg-white/70 border border-blue-100 overflow-hidden relative">
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-blue-100/80 to-transparent animate-pulse"></div>
+              <div class="absolute bottom-5 left-6 right-6 h-1 bg-gradient-to-r from-techBlue via-premiumPurple to-mint rounded-full"></div>
+              <div class="absolute bottom-4 left-6 w-3 h-3 rounded-full bg-techBlue shadow-softGlow"></div>
+              <div class="absolute bottom-4 left-1/2 w-3 h-3 rounded-full bg-premiumPurple shadow-softGlow"></div>
+              <div class="absolute bottom-4 right-6 w-3 h-3 rounded-full bg-mint shadow-softGlow"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-24 px-6">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 items-start">
+      <div class="lg:col-span-5 reveal">
+        <p class="text-techBlue font-bold tracking-widest uppercase text-sm mb-4">About Ellie</p>
+        <h2 class="text-3xl md:text-5xl font-black leading-tight mb-6">
+          把愛狗經驗，轉化為更有系統、更溫柔的照護知識。
+        </h2>
+        <p class="text-slate-600 leading-relaxed">
+          Ellie 是阿尼基寵物學院 Aniki Pet Academy 的創辦人，也是一位累積超過 18 年狗狗陪伴與照護經驗的專業愛狗人士。
+        </p>
+      </div>
+
+      <div class="lg:col-span-7 glass rounded-[2rem] p-7 md:p-10 reveal">
+        <div class="space-y-5 text-slate-600 leading-relaxed">
+          <p>
+            長期以來，我專注於犬隻日常照護、高齡犬陪伴、犬種特性觀察、寵物用品選品與寵物生活美學，致力於將愛狗經驗轉化為更有系統、更實用，也更貼近飼主日常的知識內容。
+          </p>
+          <p>
+            創立阿尼基寵物學院的初衷，是希望讓每一位飼主都能用更溫柔且專業的方式理解狗狗。從飲食管理、生活照護、行為觀察，到高齡犬不同階段的陪伴需求，我相信真正好的飼養，不只是照顧毛孩的生活，更是建立一段長期、穩定且彼此信任的關係。
+          </p>
+          <p>
+            在專業學習上，我持續參與寵物照護管理、犬隻行為觀察、寵物營養與飲食管理、高齡犬照護、犬貓基礎照護與急救等相關課程與研習，並具備寵物照護員 PCP 認證、寵物美容丙級技術士及高齡犬照護等專業訓練背景。
+          </p>
+          <p class="font-bold text-slate-800">
+            我相信，愛狗不只是熱情，更是一種專業、責任與長期陪伴。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section id="philosophy" class="py-24 px-6 bg-white/35">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-14 reveal">
+        <p class="text-techBlue font-bold tracking-widest uppercase text-sm mb-4">Brand Philosophy</p>
+        <h2 class="text-3xl md:text-5xl font-black mb-6 whitespace-nowrap">愛狗，是一種專業、責任與長期陪伴。</h2>
+        <p class="text-slate-600 leading-relaxed">
+          阿尼基寵物學院希望成為飼主身邊值得信賴的寵物生活夥伴，讓每一位毛孩都能被好好理解。
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="glass rounded-[2rem] p-8 hover-lift reveal">
+          <div class="text-4xl mb-5">🔍</div>
+          <h3 class="text-xl font-black mb-3">理解狗狗</h3>
+          <p class="text-slate-600 leading-relaxed">以觀察取代猜測，從行為、作息與情緒中讀懂狗狗真正的需求。</p>
+        </div>
+
+        <div class="glass rounded-[2rem] p-8 hover-lift reveal">
+          <div class="text-4xl mb-5">✨</div>
+          <h3 class="text-xl font-black mb-3">賦能飼主</h3>
+          <p class="text-slate-600 leading-relaxed">用清楚、實用且容易執行的方式，幫助飼主提升日常照護判斷力。</p>
+        </div>
+
+        <div class="glass rounded-[2rem] p-8 hover-lift reveal">
+          <div class="text-4xl mb-5">🌙</div>
+          <h3 class="text-xl font-black mb-3">陪伴每個階段</h3>
+          <p class="text-slate-600 leading-relaxed">從新手飼養到高齡犬照護，陪伴人與狗狗走過每一個生命階段。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="max-w-3xl mb-14 reveal">
+        <p class="text-techBlue font-bold tracking-widest uppercase text-sm mb-4">Services</p>
+        <h2 class="text-3xl md:text-5xl font-black mb-6">狗狗照護與生活服務</h2>
+        <p class="text-slate-600 leading-relaxed">
+          以「讓飼主更懂狗狗，也更有能力照顧狗狗」為核心，提供結合專業知識、生活經驗與寵物美學的整合式服務。
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="gradient-border rounded-[2rem] p-6 hover-lift reveal">
+          <div class="text-3xl mb-4">🍽️</div>
+          <h3 class="font-black text-lg mb-3">狗狗日常照護建議</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">協助飼主掌握飲食、作息、環境與日常觀察重點，建立穩定且安心的照護習慣。</p>
+        </div>
+
+        <div class="gradient-border rounded-[2rem] p-6 hover-lift reveal">
+          <div class="text-3xl mb-4">🤍</div>
+          <h3 class="font-black text-lg mb-3">高齡犬陪伴與照護</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">針對高齡犬不同階段的身心需求，提供陪伴、生活調整與照護觀察建議。</p>
+        </div>
+
+        <div class="gradient-border rounded-[2rem] p-6 hover-lift reveal">
+          <div class="text-3xl mb-4">🧩</div>
+          <h3 class="font-black text-lg mb-3">犬隻行為觀察</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">透過日常行為、情緒反應與生活情境觀察，協助飼主更理解狗狗的需求與訊號。</p>
+        </div>
+
+        <div class="gradient-border rounded-[2rem] p-6 hover-lift reveal">
+          <div class="text-3xl mb-4">🛍️</div>
+          <h3 class="font-black text-lg mb-3">寵物用品選品分析</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">從安全性、實用性、美感與生活適配度出發，協助飼主選擇更合適的寵物用品。</p>
+        </div>
+
+        <div class="gradient-border rounded-[2rem] p-6 hover-lift reveal">
+          <div class="text-3xl mb-4">📘</div>
+          <h3 class="font-black text-lg mb-3">新手飼主陪伴指南</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">提供新手飼主從準備、適應、照護到互動建立的完整陪伴建議。</p>
+        </div>
+
+        <div class="gradient-border rounded-[2rem] p-6 hover-lift reveal">
+          <div class="text-3xl mb-4">🏡</div>
+          <h3 class="font-black text-lg mb-3">寵物生活美學顧問</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">結合寵物照護、生活風格、空間與用品選品，打造更有品質的人犬日常。</p>
+        </div>
+
+        <div class="gradient-border rounded-[2rem] p-6 hover-lift reveal">
+          <div class="text-3xl mb-4">🧳</div>
+          <h3 class="font-black text-lg mb-3">寵物友善活動規劃</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">協助規劃適合毛孩參與的生活體驗、旅遊行程與友善活動。</p>
+        </div>
+
+        <div class="gradient-border rounded-[2rem] p-6 hover-lift reveal">
+          <div class="text-3xl mb-4">📱</div>
+          <h3 class="font-black text-lg mb-3">寵物品牌社群企劃</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">協助寵物品牌建立有溫度、有識別度、能傳遞信任感的圖文與社群內容。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Expertise -->
+  <section id="expertise" class="py-24 px-6 bg-white/35">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+      <div class="reveal">
+        <p class="text-techBlue font-bold tracking-widest uppercase text-sm mb-4">Expertise</p>
+        <h2 class="text-3xl md:text-5xl font-black mb-6">不是履歷表，而是值得信任的照護底蘊。</h2>
+        <p class="text-slate-600 leading-relaxed mb-8">
+          透過長期陪伴、專業研習與實際照護經驗，將知識轉化成飼主真正用得上的日常判斷力。
+        </p>
+
+        <div class="glass rounded-[2rem] p-7">
+          <p class="text-6xl font-black section-title mb-2">18+</p>
+          <p class="font-bold text-slate-800">年狗狗陪伴與照護經驗</p>
+          <p class="text-sm text-slate-500 mt-2">從日常生活、行為觀察到高齡犬陪伴，累積長期且真實的照護視角。</p>
+        </div>
+      </div>
+
+      <div class="relative reveal">
+        <div class="space-y-4">
+          <div class="glass rounded-3xl p-5 flex gap-4 items-start hover-lift">
+            <span class="w-10 h-10 rounded-2xl bg-blue-100 flex items-center justify-center">01</span>
+            <div>
+              <h3 class="font-black">PCP 寵物照護員認證</h3>
+              <p class="text-sm text-slate-500 mt-1">具備系統化寵物照護基礎與專業訓練背景。</p>
+            </div>
+          </div>
+
+          <div class="glass rounded-3xl p-5 flex gap-4 items-start hover-lift">
+            <span class="w-10 h-10 rounded-2xl bg-purple-100 flex items-center justify-center">02</span>
+            <div>
+              <h3 class="font-black">寵物美容丙級技術士</h3>
+              <p class="text-sm text-slate-500 mt-1">理解狗狗外在照護、清潔整理與生活品質的關聯。</p>
+            </div>
+          </div>
+
+          <div class="glass rounded-3xl p-5 flex gap-4 items-start hover-lift">
+            <span class="w-10 h-10 rounded-2xl bg-emerald-100 flex items-center justify-center">03</span>
+            <div>
+              <h3 class="font-black">高齡犬照護訓練</h3>
+              <p class="text-sm text-slate-500 mt-1">關注高齡犬身心變化、生活調整與長期陪伴需求。</p>
+            </div>
+          </div>
+
+          <div class="glass rounded-3xl p-5 flex gap-4 items-start hover-lift">
+            <span class="w-10 h-10 rounded-2xl bg-blue-100 flex items-center justify-center">04</span>
+            <div>
+              <h3 class="font-black">犬貓基礎照護與急救研習</h3>
+              <p class="text-sm text-slate-500 mt-1">協助飼主建立更完整的日常照護與緊急應變概念。</p>
+            </div>
+          </div>
+
+          <div class="glass rounded-3xl p-5 flex gap-4 items-start hover-lift">
+            <span class="w-10 h-10 rounded-2xl bg-purple-100 flex items-center justify-center">05</span>
+            <div>
+              <h3 class="font-black">寵物營養、飲食管理與行為觀察</h3>
+              <p class="text-sm text-slate-500 mt-1">以生活脈絡理解狗狗需求，而非只看單一問題。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cases -->
+  <section id="cases" class="py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-14 reveal">
+        <p class="text-techBlue font-bold tracking-widest uppercase text-sm mb-4">Portfolio / Cases</p>
+        <h2 class="text-3xl md:text-5xl font-black mb-6">作品集與案例展示</h2>
+        <p class="text-slate-600 leading-relaxed">
+          從日常照護紀錄到品牌內容企劃，將專業知識轉化成有溫度、有美感、可執行的內容。
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <article class="glass rounded-[2rem] overflow-hidden hover-lift reveal">
+          <div class="h-40 bg-gradient-to-br from-blue-100 via-white to-purple-100 flex items-center justify-center text-5xl">🐕</div>
+          <div class="p-6">
+            <p class="text-xs font-bold text-techBlue mb-2">Senior Care</p>
+            <h3 class="font-black text-lg mb-3">高齡犬日常照護紀錄</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">記錄飲食、活動力、情緒與生活變化，協助飼主掌握陪伴節奏。</p>
+            <span class="text-xs px-3 py-1 rounded-full bg-blue-50 text-techBlue">高齡犬陪伴</span>
+          </div>
+        </article>
+
+        <article class="glass rounded-[2rem] overflow-hidden hover-lift reveal">
+          <div class="h-40 bg-gradient-to-br from-purple-100 via-white to-blue-100 flex items-center justify-center text-5xl">🔎</div>
+          <div class="p-6">
+            <p class="text-xs font-bold text-premiumPurple mb-2">Breed Insight</p>
+            <h3 class="font-black text-lg mb-3">犬種特性觀察內容</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">從個性、習慣與生活需求出發，整理飼主容易理解的犬種知識。</p>
+            <span class="text-xs px-3 py-1 rounded-full bg-purple-50 text-premiumPurple">犬種觀察</span>
+          </div>
+        </article>
+
+        <article class="glass rounded-[2rem] overflow-hidden hover-lift reveal">
+          <div class="h-40 bg-gradient-to-br from-emerald-100 via-white to-blue-100 flex items-center justify-center text-5xl">🧺</div>
+          <div class="p-6">
+            <p class="text-xs font-bold text-mint mb-2">Selection</p>
+            <h3 class="font-black text-lg mb-3">寵物用品選品推薦</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">以安全、實用、美感與生活適配度為基準，挑選更適合狗狗的用品。</p>
+            <span class="text-xs px-3 py-1 rounded-full bg-emerald-50 text-mint">生活選品</span>
+          </div>
+        </article>
+
+        <article class="glass rounded-[2rem] overflow-hidden hover-lift reveal">
+          <div class="h-40 bg-gradient-to-br from-blue-100 via-white to-emerald-100 flex items-center justify-center text-5xl">📸</div>
+          <div class="p-6">
+            <p class="text-xs font-bold text-techBlue mb-2">Brand Content</p>
+            <h3 class="font-black text-lg mb-3">寵物品牌社群企劃</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">協助寵物品牌建立有溫度、有識別度且能傳遞信任感的內容方向。</p>
+            <span class="text-xs px-3 py-1 rounded-full bg-blue-50 text-techBlue">品牌合作</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section id="blog" class="py-24 px-6 bg-white/35">
+    <div class="max-w-7xl mx-auto">
+      <div class="max-w-3xl mb-14 reveal">
+        <p class="text-techBlue font-bold tracking-widest uppercase text-sm mb-4">Blog Preview</p>
+        <h2 class="text-3xl md:text-5xl font-black mb-6">寵物知識部落格</h2>
+        <p class="text-slate-600 leading-relaxed">
+          用更清楚、更有美感的方式，整理狗狗照護、行為觀察與生活美學知識。
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <article class="glass rounded-[2rem] p-7 hover-lift reveal">
+          <span class="text-xs px-3 py-1 rounded-full bg-blue-50 text-techBlue font-bold">高齡犬照護</span>
+          <h3 class="text-xl font-black mt-5 mb-3">高齡犬照護：從日常小變化開始讀懂牠</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-6">當狗狗進入高齡階段，活動力、飲食、睡眠與情緒都可能悄悄改變。學會觀察，是陪伴的第一步。</p>
+          <a href="#contact" class="font-bold text-techBlue hover:text-premiumPurple transition">閱讀更多 →</a>
+        </article>
+
+        <article class="glass rounded-[2rem] p-7 hover-lift reveal">
+          <span class="text-xs px-3 py-1 rounded-full bg-purple-50 text-premiumPurple font-bold">行為觀察</span>
+          <h3 class="text-xl font-black mt-5 mb-3">狗狗行為觀察：那些被忽略的情緒訊號</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-6">狗狗的舔嘴、迴避、凝視或靠近，都可能是訊號。真正的理解，從細節開始。</p>
+          <a href="#contact" class="font-bold text-techBlue hover:text-premiumPurple transition">閱讀更多 →</a>
+        </article>
+
+        <article class="glass rounded-[2rem] p-7 hover-lift reveal">
+          <span class="text-xs px-3 py-1 rounded-full bg-emerald-50 text-mint font-bold">新手指南</span>
+          <h3 class="text-xl font-black mt-5 mb-3">新手飼主指南：建立安心生活節奏的第一步</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-6">從環境準備、作息建立到互動方式，讓狗狗與飼主一起穩定適應新的生活。</p>
+          <a href="#contact" class="font-bold text-techBlue hover:text-premiumPurple transition">閱讀更多 →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 px-6">
+    <div class="max-w-6xl mx-auto reveal">
+      <div class="relative overflow-hidden rounded-[2.5rem] glass p-8 md:p-14 text-center">
+        <div class="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-blue-200/30 blur-3xl"></div>
+        <div class="absolute -bottom-20 -right-20 w-64 h-64 rounded-full bg-emerald-200/30 blur-3xl"></div>
+
+        <p class="text-techBlue font-bold tracking-widest uppercase text-sm mb-4 relative">Ready to Connect</p>
+        <h2 class="text-3xl md:text-5xl font-black mb-6 relative">準備好更理解你的狗狗了嗎？</h2>
+        <p class="text-slate-600 leading-relaxed max-w-2xl mx-auto mb-9 relative">
+          讓阿尼基寵物學院陪你一起，把愛狗的心意轉化為更安心、更有品質的日常照護行動。
+        </p>
+
+        <div class="grid gap-4 md:grid-cols-3 mb-10">
+          <a href="https://taiwanspca.neticrm.tw/civicrm/event/info?id=268&reset=1" target="_blank" rel="noopener noreferrer" class="glass rounded-[2rem] p-6 hover-lift transition-shadow border border-slate-200">
+            <div class="text-3xl text-techBlue mb-4"><i class="fa-solid fa-dog"></i></div>
+            <h3 class="font-black text-lg mb-2">高齡犬陪伴指南｜Senior Dog Care Journey</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">參考高齡犬貓照護講座內容，從健康管理、行為觀察與日常陪伴出發，建立溫柔而實用的高齡犬照護指南。</p>
+          </a>
+
+          <a href="https://www.scribd.com/document/697787648/U-%E9%99%AA%E4%BD%A0-%E5%AF%B5%E7%89%A9%E8%A1%8C%E7%82%BA%E5%BC%95%E5%B0%8E%E8%A8%93%E7%B7%B4-%E4%BC%81%E5%8A%83%E6%9B%B8" target="_blank" rel="noopener noreferrer" class="glass rounded-[2rem] p-6 hover-lift transition-shadow border border-slate-200">
+            <div class="text-3xl text-premiumPurple mb-4"><i class="fa-solid fa-heart"></i></div>
+            <h3 class="font-black text-lg mb-2">毛孩情緒安撫諮詢｜Calm & Care Session</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">參考寵物行為諮詢與引導訓練概念，透過日常觀察與飼主訪談，協助理解毛孩情緒反應與陪伴需求。</p>
+          </a>
+
+          <a href="https://university.shopee.tw/article/9/576" target="_blank" rel="noopener noreferrer" class="glass rounded-[2rem] p-6 hover-lift transition-shadow border border-slate-200">
+            <div class="text-3xl text-mint mb-4"><i class="fa-solid fa-paw"></i></div>
+            <h3 class="font-black text-lg mb-2">寵物生活美學企劃｜Pet Lifestyle Branding</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">參考寵物品牌以知識圖文與社群內容建立品牌信任的方式，規劃具溫度與辨識度的寵物生活內容。</p>
+          </a>
+        </div>
+
+        <div class="glass rounded-[2rem] p-6 mb-6 text-left md:text-center">
+          <p class="text-xs uppercase tracking-[0.28em] font-bold text-slate-500 mb-4">外部依賴庫 (Dependencies)</p>
+          <div class="flex flex-wrap justify-center gap-3">
+            <a href="https://aistudy.pse.is/linemdsgroup" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition">
+              <i class="fa-brands fa-line text-[#00c300]"></i>
+              <span>LINE</span>
+            </a>
+            <a href="https://www.facebook.com/MarketingDataScienceTMR/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition">
+              <i class="fa-brands fa-facebook text-[#1877f2]"></i>
+              <span>Facebook</span>
+            </a>
+            <a href="https://www.linkedin.com/in/howardzhong/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition">
+              <i class="fa-brands fa-linkedin text-[#0a66c2]"></i>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://github.com/HowardNTUST" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition">
+              <i class="fa-brands fa-github"></i>
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="glass rounded-[2rem] p-6 mb-8 text-left md:text-center">
+          <p class="text-xs uppercase tracking-[0.28em] font-bold text-slate-500 mb-4">填寫需求表單</p>
+          <h3 class="text-2xl font-black mb-3">讓 Ellie 更精準了解你的需求</h3>
+          <p class="text-slate-600 mb-6">直接前往 Google Form 填寫需求內容，讓我們更快提供專屬建議。</p>
+          <a href="https://forms.gle/ExCuHmYEQBprivBB7" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-full bg-techBlue px-7 py-4 text-sm font-bold text-white shadow-softGlow hover:bg-blue-600 transition">
+            <i class="fa-solid fa-file-lines mr-3"></i>
+            填寫需求表單
+          </a>
+        </div>
+
+        <a href="https://calendar.app.google/r2FN922uR3sfqJCX9" target="_blank" class="cta-button gradient-border rounded-full px-9 py-4 inline-flex justify-center min-w-[180px] font-bold text-techBlue relative">
+          <span class="label">預約諮詢</span>
+          <span class="status">Status: Ready to Connect</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-24 px-6 bg-white/35">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10">
+      <div class="reveal">
+        <p class="text-techBlue font-bold tracking-widest uppercase text-sm mb-4">Contact</p>
+        <h2 class="text-3xl md:text-5xl font-black mb-6">聯絡 Ellie</h2>
+        <p class="text-slate-600 leading-relaxed mb-8">
+          歡迎與阿尼基寵物學院交流狗狗照護、寵物生活美學、高齡犬陪伴與品牌合作。
+        </p>
+
+        <div class="glass rounded-[2rem] p-7 space-y-5">
+          <div>
+            <p class="text-sm text-slate-500">品牌名稱</p>
+            <p class="font-black text-lg">阿尼基寵物學院 Aniki Pet Academy</p>
+          </div>
+          <div>
+            <p class="text-sm text-slate-500">人物</p>
+            <p class="font-black text-lg">Ellie</p>
+          </div>
+          <div>
+            <p class="text-sm text-slate-500">服務方向</p>
+            <p class="font-black text-lg">狗狗照護・寵物生活美學・高齡犬陪伴・品牌合作</p>
+          </div>
+          <a href="https://calendar.app.google/r2FN922uR3sfqJCX9" target="_blank" class="cta-button gradient-border rounded-full px-7 py-4 inline-flex justify-center min-w-[170px] font-bold text-techBlue">
+            <span class="label">預約諮詢</span>
+            <span class="status">Status: Ready to Connect</span>
+          </a>
+        </div>
+      </div>
+
+      <form id="contactForm" class="glass rounded-[2rem] p-7 md:p-9 reveal">
+        <div class="grid gap-5">
+          <div>
+            <label class="block text-sm font-bold text-slate-700 mb-2">姓名</label>
+            <input type="text" required class="w-full rounded-2xl border border-slate-200 bg-white/70 px-5 py-4 outline-none focus:border-techBlue focus:ring-4 focus:ring-blue-100 transition" placeholder="請輸入姓名" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-slate-700 mb-2">Email</label>
+            <input type="email" required class="w-full rounded-2xl border border-slate-200 bg-white/70 px-5 py-4 outline-none focus:border-techBlue focus:ring-4 focus:ring-blue-100 transition" placeholder="hello@example.com" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-slate-700 mb-2">想諮詢的主題</label>
+            <select class="w-full rounded-2xl border border-slate-200 bg-white/70 px-5 py-4 outline-none focus:border-techBlue focus:ring-4 focus:ring-blue-100 transition">
+              <option>狗狗日常照護</option>
+              <option>高齡犬陪伴</option>
+              <option>犬隻行為觀察</option>
+              <option>寵物用品選品</option>
+              <option>品牌合作</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-slate-700 mb-2">訊息內容</label>
+            <textarea rows="5" class="w-full rounded-2xl border border-slate-200 bg-white/70 px-5 py-4 outline-none focus:border-techBlue focus:ring-4 focus:ring-blue-100 transition" placeholder="想和 Ellie 說些什麼呢？"></textarea>
+          </div>
+
+          <button type="submit" class="rounded-full px-8 py-4 font-bold text-white bg-gradient-to-r from-techBlue via-premiumPurple to-mint shadow-softGlow hover:scale-[1.02] transition">
+            送出訊息
+          </button>
+
+          <p id="formMessage" class="hidden text-sm font-bold text-mint">
+            訊息已收到！這是一個前端展示表單，正式上線時可再串接後端服務。
+          </p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="px-6 py-10">
+    <div class="max-w-7xl mx-auto glass rounded-[2rem] px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-techBlue via-premiumPurple to-mint flex items-center justify-center text-white">
+          🐾
+        </div>
+        <div>
+          <p class="font-black">Ellie｜阿尼基寵物學院</p>
+          <p class="text-xs text-slate-500">Until every dog is truly understood.</p>
+        </div>
+      </div>
+      <p class="text-sm text-slate-500">© 2026 Aniki Pet Academy. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const mobileLinks = document.querySelectorAll(".mobile-link");
+
+    menuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("open");
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.remove("open");
+      });
+    });
+
+    // Typewriter effect
+    const typingElement = document.getElementById("typingText");
+    const typingText = "Until every dog is truly understood.";
+    let index = 0;
+
+    function typeWriter() {
+      if (index <= typingText.length) {
+        typingElement.textContent = typingText.slice(0, index);
+        index++;
+        setTimeout(typeWriter, 72);
+      }
+    }
+
+    window.addEventListener("load", typeWriter);
+
+    // Reveal on scroll
+    const revealElements = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.14
+    });
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // Form interaction
+    const contactForm = document.getElementById("contactForm");
+    const formMessage = document.getElementById("formMessage");
+
+    contactForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+      formMessage.classList.remove("hidden");
+      contactForm.reset();
+    });
+  </script>
+</body>
+</html>
